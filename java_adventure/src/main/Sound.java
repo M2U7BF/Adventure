@@ -1,12 +1,14 @@
 package main;
 
+import util.Const;
+
 import java.net.URL;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
-public class Sound {
+public class Sound implements Const {
 	Clip clip;
 	URL sounUrl[] = new URL[30];
 	
@@ -26,7 +28,7 @@ public class Sound {
 				clip.open(ais);
 				
 			} catch (Exception e) {
-				// TODO: handle exception
+				throw new RuntimeException(ERROR_MS_SOUND_CANNOT_LOAD);
 			}
 		}
 		public void play() {

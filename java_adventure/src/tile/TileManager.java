@@ -8,8 +8,9 @@ import java.io.InputStreamReader;
 import javax.imageio.ImageIO;
 
 import main.GamePanel;
+import util.Const;
 
-public class TileManager {
+public class TileManager implements Const {
 	GamePanel gp;
 	public Tile[] tile;
 	public int mapTileNum[][];
@@ -45,7 +46,7 @@ public class TileManager {
 			tile[5] = new Tile();
 			tile[5].image = ImageIO.read(getClass().getResourceAsStream("/tiles/sand.png"));
 		} catch (Exception e) {
-			// TODO: handle exception
+			throw new RuntimeException(ERROR_MS_IMAGE_CANNOT_LOAD);
 		}
 	}
 	
@@ -74,7 +75,7 @@ public class TileManager {
 			}
 			br.close();
 		} catch (Exception e) {
-			// TODO: handle exception
+			throw new RuntimeException(ERROR_MS_FILES_CANNOT_LOAD);
 		}
 	}
 	public void draw(Graphics2D g2) {

@@ -7,9 +7,10 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
 import main.GamePanel;
+import util.Const;
 
 
-public class Player extends Entity{
+public class Player extends Entity implements Const {
 	
 	GamePanel gp;
 	main.KeyHandler keyH;
@@ -49,7 +50,7 @@ public class Player extends Entity{
 			right = ImageIO.read(getClass().getResource("/player/WalkingPlayer_right.png"));
 			left = ImageIO.read(getClass().getResource("/player/WalkingPlayer_left.png"));
 		}catch (Exception e) {
-			// TODO: handle exception
+			throw new RuntimeException(ERROR_MS_IMAGE_CANNOT_LOAD);
 		}
 	}
 

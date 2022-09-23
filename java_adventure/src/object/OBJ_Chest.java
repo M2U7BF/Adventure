@@ -1,8 +1,10 @@
 package object;
 
+import util.Const;
+
 import javax.imageio.ImageIO;
 
-public class OBJ_Chest extends SuperObject{
+public class OBJ_Chest extends SuperObject implements Const {
 	
 	public OBJ_Chest() {
 		name = "Chest";
@@ -10,7 +12,7 @@ public class OBJ_Chest extends SuperObject{
 		image = ImageIO.read(getClass().getResourceAsStream("/objects/chest.png"));
 	} catch (Exception e) {
 		e.printStackTrace();
-		// TODO: handle exception
+		throw new RuntimeException(ERROR_MS_IMAGE_CANNOT_LOAD);
 	}
 }
 }
