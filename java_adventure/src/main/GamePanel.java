@@ -18,39 +18,36 @@ public class GamePanel extends JPanel implements Runnable {
     final int scale = 3;
 
     public final int tileSize = originalTileSize * scale; // 48
+    // 画面内に収めるタイル数の設定
     public final int maxScreenCol = 16;
     public final int maxScreenRow = 12;
-    public final int screenWidth = tileSize * maxScreenCol; //768px
-    public final int screenHeight = tileSize * maxScreenRow; //576px
-    
-    // WORLD SETTINGS
+    // 画面サイズの設定
+    public final int screenWidth = tileSize * maxScreenCol; // 768px
+    public final int screenHeight = tileSize * maxScreenRow; // 576px
+
+    // ゲームフィールドのタイル数の設定
     public final int maxWorldCol = 50;
     public final int maxWorldRow = 50;
-    
+
     // FPS
     int FPS = 60;
-    
+
     TileManager tileM = new TileManager(this);
     KeyHandler keyH = new KeyHandler();
     Sound music = new Sound();
     Sound se = new Sound();
-    
-    
+
+
     public CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
     public UI ui = new UI(this);
     Thread gameThread;
-    
+
     // ENTITY AND OBJECT
     public Player player = new Player(this, keyH);
     public SuperObject[] obj = new SuperObject[10];
-    
-    // set player default position
-    int playerX = 100;
-    int playerY = 100;
-    int playerSpeed = 4;
-    
-    public GamePanel(){
+
+    public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
         // trueにすると、このコンポーネントからのすべての描画は、オフスクリーンペインティングバッファで行われます。
@@ -59,89 +56,92 @@ public class GamePanel extends JPanel implements Runnable {
         this.addKeyListener(keyH);
         this.setFocusable(true);
     }
-    
+
     public void setupGame() {
-    	aSetter.setObject();
-    	playMusic(0);
+        aSetter.setObject();
+        //BGMの再生
+        playMusic(0);
     }
 
-    
+
     public void startGameThread() {
-    	gameThread = new Thread(this);
-    	gameThread.start();
+        gameThread = new Thread(this);
+        gameThread.start();
     }
-    
+
     @Override
     public void run() {
-        //描画頻度
-    	double drawInterval = 1000000000/FPS;
-        //経過時間
-    	double delta = 0;
-    	long lastTime = System.nanoTime();
-    	long currentTime;
-    	
-    	while(gameThread != null) {
+        // 描画頻度
+        double drawInterval = 1000000000 / FPS;
+        // 経過時間
+        double delta = 0;
+        long lastTime = System.nanoTime();
+        long currentTime;
 
-            //ナノ秒
-    		currentTime = System.nanoTime();
-    		delta += (currentTime - lastTime)/ drawInterval;
+        while (gameThread != null) {
 
-            //lastTime更新
-    		lastTime = currentTime;
+            // ナノ秒
+            currentTime = System.nanoTime();
+            delta += (currentTime - lastTime) / drawInterval;
 
-            //経過時間がインターバルを超えた場合
-    		if(delta >= 1) {
-    			//UPDATE
-        		update();
-        		//DRAW
-        		repaint();
-        		delta--;
-    			
-    		}
-    		
-    		
-    	}
+            // lastTime更新
+            lastTime = currentTime;
+
+            // 経過時間がインターバルを超えた場合
+            if (delta >= 1) {
+                // UPDATE
+                update();
+                // DRAW
+                repaint();
+                delta--;
+
+            }
+
+
+        }
     }
-    public void update() {
-    	player.update();
-	}
 
-    //描画
+    public void update() {
+        player.update();
+    }
+
+    // 描画
     public void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		
-		Graphics2D g2 =(Graphics2D)g; 
-		
-		//ここの順番でレイヤーが決まる
-		tileM.draw(g2);
+        super.paintComponent(g);
+
+        Graphics2D g2 = (Graphics2D) g;
+
+        // ここの順番でレイヤーが決まる
+        tileM.draw(g2);
 
         for (SuperObject superObject : obj) {
             if (superObject != null) {
                 superObject.draw(g2, this);
             }
         }
-		
-		// PLAYER
-		player.draw(g2);
-		
-		// UI
-		ui.draw(g2);
-		
-		g2.dispose();
-	}
 
-    //BGM操作
+        // PLAYER
+        player.draw(g2);
+
+        // UI
+        ui.draw(g2);
+
+        g2.dispose();
+    }
+
+    // BGM操作
     public void playMusic(int i) {
-    	music.setFile(i);
-    	music.play();
-    	music.loop();
-    	}
+        music.setFile(i);
+        music.play();
+        music.loop();
+    }
+
     public void stopMusic() {
-    	music.stop();
+        music.stop();
     }
 
     public void playSE(int i) {
-    	se.setFile(i);
-    	se.play();
+        se.setFile(i);
+        se.play();
     }
 }

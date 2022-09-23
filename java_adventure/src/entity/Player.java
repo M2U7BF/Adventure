@@ -66,7 +66,7 @@ public class Player extends Entity implements Const {
 	public void update() {
 		// CHECK TILE COLLISION
 		collisionOn = false;
-		gp.cChecker.checkTitle(this);
+		gp.cChecker.checkTile(this);
 
 		// CHECK OBJECT COLLISION
 		int objIndex = gp.cChecker.checkObject(this, true);
