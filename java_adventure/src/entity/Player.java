@@ -65,27 +65,27 @@ public class Player extends Entity implements Const {
 	   	int objIndex = gp.cChecker.checkObject(this, true);
 	   	pickUpObject(objIndex);
 	   	
-	   	if(keyH.upPressed == true) {
+	   	if(keyH.upPressed) {
 	   		direction = "up";
-	   		if(collisionOn == false) {
+	   		if(!collisionOn) {
 	   			worldY -= speed;
 	   		}
     	}
-	   	if(keyH.downPressed == true){
+	   	if(keyH.downPressed){
     		direction = "down";
-    		if(collisionOn == false) {
+    		if(!collisionOn) {
     			worldY += speed; 
 	   		}
     	}
-	   	if(keyH.leftPressed == true){
+	   	if(keyH.leftPressed){
     		direction = "left";
-    		if(collisionOn == false) {
+    		if(!collisionOn) {
     			worldX -= speed;
 	   		}
     	}
-	   	if(keyH.rightPressed == true){
+	   	if(keyH.rightPressed){
     		direction = "right";
-    		if(collisionOn == false) {
+    		if(!collisionOn) {
     			worldX += speed;
 	   		}
     	}
@@ -93,7 +93,7 @@ public class Player extends Entity implements Const {
 	   	
 	   	
 	   	// IF COLLISION IS FALSE PLAYER CAN MOVE
-	   	if(collisionOn == false) {
+	   	if(!collisionOn) {
 	   		switch(direction) {
 	   		case "up":  break;
 	   		case "down": break;

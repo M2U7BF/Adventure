@@ -1975,7 +1975,7 @@
               </net.java.amateras.uml.properties.BooleanPropertyDescriptor>
             </propertyDescriptors>
             <stereoType></stereoType>
-            <name>main.CollisonChecker</name>
+            <name>main.CollisionChecker</name>
             <path>/java_adventure/src/main/CollisonChecker.java</path>
             <isAbstract>false</isAbstract>
           </net.java.amateras.uml.classdiagram.model.ClassModel>

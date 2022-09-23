@@ -13,7 +13,7 @@ import util.Const;
 public class TileManager implements Const {
 	GamePanel gp;
 	public Tile[] tile;
-	public int mapTileNum[][];
+	public int[][] mapTileNum;
 	
 	public TileManager(GamePanel gp) {
 		this.gp = gp;
@@ -62,7 +62,7 @@ public class TileManager implements Const {
 				String line = br.readLine();
 				while(col < gp.maxWorldCol) {
 					//空白区切りの数字を配列に代入
-					String numbers[] = line.split(" ");
+					String[] numbers = line.split(" ");
 					int num =Integer.parseInt(numbers[col]);
 					
 					mapTileNum[col][row] = num ;

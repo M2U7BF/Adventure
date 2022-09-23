@@ -32,7 +32,7 @@ public class UI {
 	}
 	
 	public void draw(Graphics2D g2) {
-		if(gameFinished == true) {
+		if(gameFinished) {
 			g2.setFont(arial_40);
 			g2.setColor(Color.white);
 			
@@ -57,7 +57,7 @@ public class UI {
 			 
 			 g2.setFont(arial_80B);
 			g2.setColor(Color.white);
-			text = "Congraturations!";
+			text = "Congratulations!";
 			textLength = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
 			 x = gp.screenWidth/2 - textLength/2;
 			 y  = gp.screenHeight/2 + (gp.tileSize*2);
@@ -77,7 +77,7 @@ public class UI {
 			g2.drawString("Time : "+ dFormat.format(playTime), gp.tileSize*11, 65);
 			
 			//MESSAGE 
-			if(messageOn == true) {
+			if(messageOn) {
 				g2.setFont(g2.getFont().deriveFont(20F));
 				g2.drawString(message, gp.tileSize * 7, gp.tileSize * 5);
 				

@@ -12,7 +12,7 @@ import object.SuperObject;
 import tile.TileManager;
 
 public class GamePanel extends JPanel implements Runnable {
-    // screeen settings
+    // screen settings
     // 16*16
     final int originalTileSize = 16;
     final int scale = 3;
@@ -36,16 +36,16 @@ public class GamePanel extends JPanel implements Runnable {
     Sound se = new Sound();
     
     
-    public CollisonChecker cChecker = new CollisonChecker(this);
+    public CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
     public UI ui = new UI(this);
     Thread gameThread;
     
     // ENTITY AND OBJECT
     public Player player = new Player(this, keyH);
-    public SuperObject obj[] = new SuperObject[10];
+    public SuperObject[] obj = new SuperObject[10];
     
-    // set player default posi
+    // set player default position
     int playerX = 100;
     int playerY = 100;
     int playerSpeed = 4;
@@ -114,12 +114,12 @@ public class GamePanel extends JPanel implements Runnable {
 		
 		//ここの順番でレイヤーが決まる
 		tileM.draw(g2);
-		
-		for(int i = 0; i < obj.length; i++) {
-			if(obj[i] != null) {
-				obj[i].draw(g2, this);
-			}
-		}
+
+        for (SuperObject superObject : obj) {
+            if (superObject != null) {
+                superObject.draw(g2, this);
+            }
+        }
 		
 		// PLAYER
 		player.draw(g2);
@@ -132,7 +132,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     //BGM操作
     public void playMusic(int i) {
-    	music.setFaile(i);
+    	music.setFile(i);
     	music.play();
     	music.loop();
     	}
@@ -141,7 +141,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void playSE(int i) {
-    	se.setFaile(i);
+    	se.setFile(i);
     	se.play();
     }
 }
