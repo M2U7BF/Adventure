@@ -15,13 +15,13 @@ public class TileManager implements Const {
 	public Tile[] tile;
 	public int[][] mapTileNum;
 	
-	public TileManager(GamePanel gp) {
+	public TileManager(GamePanel gp, String mapFilePath) {
 		this.gp = gp;
 		tile = new Tile[10];
 		mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
 		
 		getTileImage();
-		loadMap("/maps/worldmap.txt");
+		loadMap(mapFilePath);
 	}
 	public void getTileImage() {
 		try {

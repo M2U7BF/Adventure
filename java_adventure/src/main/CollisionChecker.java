@@ -25,40 +25,56 @@ public class CollisionChecker {
 
 		int tileNum1, tileNum2;
 
-		switch (entity.direction) {
-			case "up":
-				entityTopRow = (entityTopWorldY - entity.speed) / gp.tileSize;
-				tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityTopRow];
-				tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityTopRow];
-				// collisionの属性を持つタイルの場合
-				if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
-					entity.collisionOn = true;
-				}
-				break;
-			case "down":
-				entityBottomRow = (entityBottomWorldY + entity.speed) / gp.tileSize;
-				tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityBottomRow];
-				tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityBottomRow];
-				if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
-					entity.collisionOn = true;
-				}
-				break;
-			case "left":
-				entityLeftCol = (entityLeftWorldX - entity.speed) / gp.tileSize;
-				tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityTopRow];
-				tileNum2 = gp.tileM.mapTileNum[entityLeftCol][entityBottomRow];
-				if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
-					entity.collisionOn = true;
-				}
-				break;
-			case "right":
-				entityRightCol = (entityRightWorldY + entity.speed) / gp.tileSize;
-				tileNum1 = gp.tileM.mapTileNum[entityRightCol][entityTopRow];
-				tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityBottomRow];
-				if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
-					entity.collisionOn = true;
-				}
-				break;
+		//フィールド外に行く場合阻止
+		if(entityTopWorldY - entity.speed<0){
+			entity.worldY += entity.speed;
+			return;
+		}
+		if((entityBottomWorldY + entity.speed) / gp.tileSize>=50){
+			entity.worldY -= entity.speed;
+			return;
+		}
+		if(entityLeftWorldX - entity.speed<0){
+			entity.worldX += entity.speed;
+			return;
+		}
+		if((entityRightWorldY + entity.speed) / gp.tileSize>=50){
+			entity.worldX -= entity.speed;
+			return;
+		}
+
+		if(entity.direction=="up"){
+			entityTopRow = (entityTopWorldY - entity.speed) / gp.tileSize;
+			tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityTopRow];
+			tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityTopRow];
+			// collisionの属性を持つタイルの場合
+			if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
+				entity.collisionOn = true;
+			}
+		}
+		if (entity.direction=="down"){
+			entityBottomRow = (entityBottomWorldY + entity.speed) / gp.tileSize;
+			tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityBottomRow];
+			tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityBottomRow];
+			if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
+				entity.collisionOn = true;
+			}
+		}
+		if (entity.direction=="left"){
+			entityLeftCol = (entityLeftWorldX - entity.speed) / gp.tileSize;
+			tileNum1 = gp.tileM.mapTileNum[entityLeftCol][entityTopRow];
+			tileNum2 = gp.tileM.mapTileNum[entityLeftCol][entityBottomRow];
+			if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
+				entity.collisionOn = true;
+			}
+		}
+		if (entity.direction=="right"){
+			entityRightCol = (entityRightWorldY + entity.speed) / gp.tileSize;
+			tileNum1 = gp.tileM.mapTileNum[entityRightCol][entityTopRow];
+			tileNum2 = gp.tileM.mapTileNum[entityRightCol][entityBottomRow];
+			if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
+				entity.collisionOn = true;
+			}
 		}
 	}
 

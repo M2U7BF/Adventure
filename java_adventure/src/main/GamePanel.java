@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JPanel;
 
@@ -32,7 +34,14 @@ public class GamePanel extends JPanel implements Runnable {
     // FPS
     int FPS = 60;
 
-    TileManager tileM = new TileManager(this);
+    List<String> mapPaths = new ArrayList<>(){
+        {
+            add("/maps/worldmap.txt");
+            add("/maps/dry-river-bed.txt");
+        }
+    };
+
+    TileManager tileM = new TileManager(this, mapPaths.get(1));
     KeyHandler keyH = new KeyHandler();
     Sound music = new Sound();
     Sound se = new Sound();
@@ -43,8 +52,10 @@ public class GamePanel extends JPanel implements Runnable {
     public UI ui = new UI(this);
     Thread gameThread;
 
+    int defaultPosition[] =  {45,6};
+
     // ENTITY AND OBJECT
-    public Player player = new Player(this, keyH);
+    public Player player = new Player(this, keyH, defaultPosition);
     public SuperObject[] obj = new SuperObject[10];
 
     public GamePanel() {
@@ -60,7 +71,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void setupGame() {
         aSetter.setObject();
         //BGMの再生
-        playMusic(0);
+//        playMusic(0);
     }
 
 

@@ -20,7 +20,7 @@ public class Player extends Entity implements Const {
 	public final int screenY;
 	public int hasKey = 0;
 
-	public Player(GamePanel gp, main.KeyHandler keyH) {
+	public Player(GamePanel gp, main.KeyHandler keyH, int[] defaultPosition) {
 		this.gp = gp;
 		this.keyH = keyH;
 
@@ -33,17 +33,19 @@ public class Player extends Entity implements Const {
 		solidArea.y = 16;
 		solidAreaDefaultX = solidArea.x;
 		solidAreaDefaultY = solidArea.y;
-		setDefaultValue();
+		setDefaultValue(defaultPosition);
 		getPlayerImage();
 	}
 
 	//開始時点でのデフォルト値を設定
-	public void setDefaultValue() {
+	public void setDefaultValue(int[] defaultValue) {
+		//23,21
 		//左から~個目の位置
-		worldX = gp.tileSize * 23;
+		worldX = gp.tileSize * defaultValue[0];
 		//上から~個目の位置
-		worldY = gp.tileSize * 21;
-		speed = 4;
+		worldY = gp.tileSize * defaultValue[1];
+//		speed = 4;
+		speed = 8;
 		// 開始時、下向き
 		direction = "down";
 	}
