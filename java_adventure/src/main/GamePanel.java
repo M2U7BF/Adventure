@@ -73,22 +73,27 @@ public class GamePanel extends JPanel implements Runnable {
     
     @Override
     public void run() {
+        //描画頻度
     	double drawInterval = 1000000000/FPS;
+        //経過時間
     	double delta = 0;
     	long lastTime = System.nanoTime();
     	long currentTime;
     	
     	while(gameThread != null) {
-    		
+
+            //ナノ秒
     		currentTime = System.nanoTime();
     		delta += (currentTime - lastTime)/ drawInterval;
-    		
+
+            //lastTime更新
     		lastTime = currentTime;
-    		
+
+            //経過時間がインターバルを超えた場合
     		if(delta >= 1) {
-    			// UPDATE
+    			//UPDATE
         		update();
-        		// DROW
+        		//DRAW
         		repaint();
         		delta--;
     			
@@ -100,6 +105,8 @@ public class GamePanel extends JPanel implements Runnable {
     public void update() {
     	player.update();
 	}
+
+    //描画
     public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		
@@ -122,6 +129,8 @@ public class GamePanel extends JPanel implements Runnable {
 		
 		g2.dispose();
 	}
+
+    //BGM操作
     public void playMusic(int i) {
     	music.setFaile(i);
     	music.play();
@@ -130,6 +139,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void stopMusic() {
     	music.stop();
     }
+
     public void playSE(int i) {
     	se.setFaile(i);
     	se.play();

@@ -43,6 +43,7 @@ public class Player extends Entity{
 	}
 	public void getPlayerImage() {
 		try {
+			//キー操作ごとの画像
 			up = ImageIO.read(getClass().getResource("/player/WalkingPlayer_back.png"));
 			down = ImageIO.read(getClass().getResource("/player/WalkingPlayer_front.png"));
 			right = ImageIO.read(getClass().getResource("/player/WalkingPlayer_right.png"));
@@ -51,8 +52,11 @@ public class Player extends Entity{
 			// TODO: handle exception
 		}
 	}
+
+	//描画を更新するメソッド。
+	////状態の確認もする。
 	public void update() {
-		// CHECK TILE COLLISION
+		//CHECK TILE COLLISION
 	   	collisionOn = false;
 	   	gp.cChecker.checkTitle(this);
 	   	
@@ -97,14 +101,18 @@ public class Player extends Entity{
 	   		}
 	   		}
 	}
+
+	//アイテム入手
 	public void pickUpObject(int i) {
 		if(i != 999) {
 			String objectName = gp.obj[i].name;
 			
 			switch(objectName) {
 			case "Key":
+				//音再生
 				gp.playSE(1);
 				hasKey++;
+				//アイテムの描画を消す
 				gp.obj[i] = null;
 				gp.ui.shortMessage("You got a key");
 				break;
@@ -134,10 +142,8 @@ public class Player extends Entity{
 			}
 		}
 	}
+
 	public void draw(Graphics2D g2) {
-//		g2.setColor(Color.white);
-//		g2.fillRect(x,y,gp.tileSize,gp.tileSize);
-		
 		BufferedImage image = null;
 		switch(direction) {
 		case "up":

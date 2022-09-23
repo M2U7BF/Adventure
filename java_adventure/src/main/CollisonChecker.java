@@ -63,7 +63,7 @@ public class CollisonChecker {
 		
 		for(int i=0 ; i < gp.obj.length; i++) {
 			if(gp.obj[i] != null) {
-				//Get entitiy's area position
+				//Get entity's area position
 				entity.solidArea.x = entity.worldX + entity.solidArea.x;
 				entity.solidArea.y = entity.worldY + entity.solidArea.y;
 				
