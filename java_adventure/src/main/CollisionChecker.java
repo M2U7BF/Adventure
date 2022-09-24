@@ -26,20 +26,21 @@ public class CollisionChecker {
 		int tileNum1, tileNum2;
 
 		//フィールド外に行く場合阻止
-		if(entityTopWorldY - entity.speed<0){
-			entity.worldY += entity.speed;
+		if(entityTopWorldY - entity.speed<=0){
+			//速度の2倍の距離を戻す
+			entity.worldY += entity.speed*2;
 			return;
 		}
 		if((entityBottomWorldY + entity.speed) / gp.tileSize>=50){
-			entity.worldY -= entity.speed;
+			entity.worldY -= entity.speed*2;
 			return;
 		}
-		if(entityLeftWorldX - entity.speed<0){
-			entity.worldX += entity.speed;
+		if(entityLeftWorldX - entity.speed<=0){
+			entity.worldX += entity.speed*2;
 			return;
 		}
 		if((entityRightWorldY + entity.speed) / gp.tileSize>=50){
-			entity.worldX -= entity.speed;
+			entity.worldX -= entity.speed*2;
 			return;
 		}
 
