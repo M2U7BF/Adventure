@@ -1,6 +1,7 @@
 package main;
 
 import entity.Entity;
+import entity.Player;
 
 public class CollisionChecker {
 
@@ -22,6 +23,12 @@ public class CollisionChecker {
 		int entityRightCol = entityRightWorldY / gp.tileSize;
 		int entityTopRow = entityTopWorldY / gp.tileSize;
 		int entityBottomRow = entityBottomWorldY / gp.tileSize;
+
+//		System.out.println(
+//						"L:"+entityLeftCol+","+
+//						"R:"+entityRightCol+","+
+//						"T:"+entityTopRow+","+
+//						"B:"+entityBottomRow);
 
 		int tileNum1, tileNum2;
 
@@ -157,5 +164,39 @@ public class CollisionChecker {
 		}
 
 		return index;
+	}
+
+	public void checkFieldChange(){
+		Player entity = gp.player;
+
+		// entityのpx座標
+		int entityLeftWorldX = entity.worldX + entity.solidArea.x;
+		int entityRightWorldY = entity.worldX + entity.solidArea.x + entity.solidArea.width;
+		int entityTopWorldY = entity.worldY + entity.solidArea.y;
+		int entityBottomWorldY = entity.worldY + entity.solidArea.y + entity.solidArea.height;
+
+		// entityのタイル座標
+		int entityLeftCol = entityLeftWorldX / gp.tileSize;
+		int entityRightCol = entityRightWorldY / gp.tileSize;
+		int entityTopRow = entityTopWorldY / gp.tileSize;
+		int entityBottomRow = entityBottomWorldY / gp.tileSize;
+
+		System.out.println(entityRightCol+","+entityBottomRow);
+
+		if (this.gp.fieldNumber==0){
+			if(entityRightCol == 49 && (entityBottomRow >= 21 && 25 >= entityBottomRow)){
+				// フィールド遷移
+				int startPosition[] = {2,44};
+				gp.changeField(1, startPosition,"left");
+				gp.isFieldChange = true;
+			}
+		}
+		if (this.gp.fieldNumber==1){
+			if (entityRightCol == 1 && (46 >= entityBottomRow && entityBottomRow >= 43)){
+				int startPosition[] = {48,21};
+				gp.changeField(0, startPosition,"right");
+				gp.isFieldChange = true;
+			}
+		}
 	}
 }

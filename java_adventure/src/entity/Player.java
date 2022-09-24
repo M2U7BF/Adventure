@@ -12,6 +12,8 @@ import util.Const;
 
 public class Player extends Entity implements Const {
 
+	public int[] startPosition;
+	public String startDirection;
 	GamePanel gp;
 	main.KeyHandler keyH;
 
@@ -73,6 +75,9 @@ public class Player extends Entity implements Const {
 		// CHECK OBJECT COLLISION
 		int objIndex = gp.cChecker.checkObject(this, true);
 		pickUpObject(objIndex);
+
+		//マップの遷移をチェック
+		gp.cChecker.checkFieldChange();
 
 		// TODO : 処理をまとめる
 		if (keyH.upPressed) {

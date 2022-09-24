@@ -41,7 +41,9 @@ public class GamePanel extends JPanel implements Runnable {
         }
     };
 
-    TileManager tileM = new TileManager(this, mapPaths.get(1));
+    public int fieldNumber = 0;
+    public boolean isFieldChange = false;
+    TileManager tileM = new TileManager(this, mapPaths.get(this.fieldNumber));
     KeyHandler keyH = new KeyHandler();
     Sound music = new Sound();
     Sound se = new Sound();
@@ -52,7 +54,8 @@ public class GamePanel extends JPanel implements Runnable {
     public UI ui = new UI(this);
     Thread gameThread;
 
-    int defaultPosition[] =  {45,6};
+//    int defaultPosition[] =  {45,6};
+    int defaultPosition[] =  {23,21};
 
     // ENTITY AND OBJECT
     public Player player = new Player(this, keyH, defaultPosition);
@@ -71,7 +74,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void setupGame() {
         aSetter.setObject();
         //BGMの再生
-//        playMusic(0);
+        playMusic(0);
     }
 
 
@@ -107,8 +110,6 @@ public class GamePanel extends JPanel implements Runnable {
                 delta--;
 
             }
-
-
         }
     }
 
@@ -124,6 +125,12 @@ public class GamePanel extends JPanel implements Runnable {
 
         // ここの順番でレイヤーが決まる
         tileM.draw(g2);
+
+        //フィールドの変更
+        if(this.isFieldChange){
+            tileM = new TileManager(this,  mapPaths.get(this.fieldNumber));
+            this.isFieldChange = false;
+        }
 
         for (SuperObject superObject : obj) {
             if (superObject != null) {
@@ -154,5 +161,12 @@ public class GamePanel extends JPanel implements Runnable {
     public void playSE(int i) {
         se.setFile(i);
         se.play();
+    }
+
+    public void changeField(int fieldNumber, int[] startPosition, String startDirection){
+        this.fieldNumber = fieldNumber;
+        this.player.startDirection = startDirection;
+        this.player.worldX = this.tileSize * startPosition[0];
+        this.player.worldY = this.tileSize * startPosition[1];
     }
 }
