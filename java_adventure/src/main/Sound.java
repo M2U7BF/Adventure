@@ -15,7 +15,7 @@ public class Sound implements Const {
 	public Sound() {
 		soundUrl[0] = getClass().getResource("/sounds/theme4.wav");
 		soundUrl[1] = getClass().getResource("/sounds/coin2.wav");
-		soundUrl[2] = getClass().getResource("/sounds/power2.wav");
+		soundUrl[2] = getClass().getResource("/sounds/powerup2.wav");
 		soundUrl[3] = getClass().getResource("/sounds/unlock2.wav");
 		soundUrl[4] = getClass().getResource("/sounds/fanfare3.wav");
 	}
